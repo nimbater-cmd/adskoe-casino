@@ -1,0 +1,287 @@
+body.level-bez {
+  background: url('assets/bg-bez.jpg') no-repeat center center;
+  background-size: cover;
+  color: #ff3300;
+  font-family: 'Arial', sans-serif;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+}
+
+.casino {
+  padding: 10px 20px;
+  position: relative;
+  z-index: 1;
+}
+
+h1, #level {
+  text-shadow: 0 0 10px #f00;
+  color: #c00;
+  margin: 5px 0;
+  font-size: 1.8em;
+}
+
+.balance {
+  font-size: 1.3em;
+  margin: 10px 0;
+}
+
+/* Сетка 8x4 */
+.slot-machine-8x4 {
+  margin: 15px auto;
+  width: 95%;
+  max-width: 800px;
+  aspect-ratio: 8 / 4;
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  gap: 4px;
+  background: rgba(0, 0, 0, 0.7);
+  border: 4px solid #800;
+  border-radius: 10px;
+  padding: 8px;
+  overflow: hidden;
+}
+
+/* Ячейка */
+.reel-cell {
+  background: #222;
+  border: 1px solid #500;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  transition: background 0.3s, border 0.3s, box-shadow 0.3s;
+}
+
+.reel-cell img {
+  width: 90%;
+  height: 90%;
+  object-fit: contain;
+  opacity: 1;
+  transition: opacity 0.4s ease, transform 0.3s;
+}
+
+/* Мягкое мерцание при вращении */
+.reel-cell.spinning {
+  background: #1a1a1a;
+  border-color: #500;
+}
+
+.reel-cell.spinning img {
+  animation: spin-glow 0.4s infinite alternate;
+  opacity: 0.6;
+  filter: brightness(0.8) blur(0.5px);
+}
+
+@keyframes spin-glow {
+  from { transform: scale(0.9); opacity: 0.5; }
+  to { transform: scale(1.05); opacity: 0.9; }
+}
+
+/* Подсветка комбинаций */
+
+/* Низкие фигуры (12–9) — жёлтая */
+.reel-cell.highlight-low {
+  background: #404000;
+  border-color: #dd0;
+  box-shadow: 0 0 10px #ff0;
+  animation: pulse-low 1s infinite alternate;
+}
+
+@keyframes pulse-low {
+  from { box-shadow: 0 0 5px #ff0; }
+  to { box-shadow: 0 0 15px #ff0, 0 0 20px #ff0; }
+}
+
+/* Средние фигуры (8–5) — оранжевая */
+.reel-cell.highlight-mid {
+  background: #502000;
+  border-color: #f80;
+  box-shadow: 0 0 15px #f80;
+  animation: pulse-mid 0.8s infinite alternate;
+}
+
+@keyframes pulse-mid {
+  from { box-shadow: 0 0 10px #f80; }
+  to { box-shadow: 0 0 20px #f80, 0 0 25px #f80; }
+}
+
+/* Высокие фигуры (4–1) — красная */
+.reel-cell.highlight-high {
+  background: #402000;
+  border-color: #ff3000;
+  box-shadow: 0 0 20px #f00;
+  animation: pulse-high 0.6s infinite alternate;
+}
+
+@keyframes pulse-high {
+  from { 
+    transform: scale(1); 
+    box-shadow: 0 0 15px #f00; 
+  }
+  to { 
+    transform: scale(1.05); 
+    box-shadow: 0 0 30px #f00, 0 0 40px #f00; 
+  }
+}
+
+/* Wild — зелёный */
+.reel-cell.highlight-wild {
+  background: #002000;
+  border-color: #0f0;
+  box-shadow: 0 0 20px #0f0;
+  animation: pulse-wild-active 0.7s infinite alternate;
+}
+
+@keyframes pulse-wild-active {
+  from { box-shadow: 0 0 10px #0f0; }
+  to { box-shadow: 0 0 30px #0f0, 0 0 40px #0f0; }
+}
+
+/* Сломанный ряд */
+.reel-cell.broken {
+  background: #300;
+  border-color: #f00;
+  animation: shake 0.5s;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-2px); }
+  75% { transform: translateX(2px); }
+}
+
+/* Бес */
+.demon {
+  position: absolute;
+  bottom: 5%;
+  right: 5%;
+  width: 120px;
+  height: 120px;
+  background: url('assets/bez.png') no-repeat;
+  background-size: contain;
+  opacity: 0.9;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Эффекты */
+.effect {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2.5em;
+  font-weight: bold;
+  color: #ff0;
+  text-shadow: 0 0 20px #f00;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 10;
+  white-space: nowrap;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 10px 20px;
+  border-radius: 10px;
+}
+
+.hit-effect {
+  animation: flash 0.6s;
+}
+
+.broken-row {
+  animation: flash-red 0.8s;
+}
+
+@keyframes flash {
+  0%, 100% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
+  50% { opacity: 1; transform: translate(-50%, -50%) scale(1.2); }
+}
+
+@keyframes flash-red {
+  0%, 100% { opacity: 0; }
+  50% { opacity: 1; color: #f00; text-shadow: 0 0 30px #f00; }
+}
+
+/* Супер игра */
+.super-game-timer {
+  font-size: 1.4em;
+  color: #0f0;
+  text-shadow: 0 0 10px #0f0;
+  margin: 10px 0;
+  font-weight: bold;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 5px 10px;
+  border-radius: 8px;
+  display: inline-block;
+  border: 1px solid #0f0;
+}
+
+/* Управление */
+.controls {
+  margin: 15px 0;
+  position: relative;
+  z-index: 2;
+}
+
+#bet {
+  padding: 10px;
+  font-size: 1.1em;
+  width: 100px;
+  border: 2px solid #800;
+  background: #333;
+  color: #f99;
+}
+
+button {
+  padding: 12px 24px;
+  font-size: 1.3em;
+  background: #c00;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-left: 10px;
+  transition: 0.3s;
+  min-width: 140px;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+button:hover:not(:disabled) {
+  background: #f00;
+  transform: scale(1.05);
+}
+
+.result {
+  margin-top: 15px;
+  font-size: 1.3em;
+  min-height: 2em;
+  color: #ffcc00;
+  word-wrap: break-word;
+  min-height: 2.5em;
+  line-height: 1.4;
+}
+
+/* Адаптив */
+@media (max-height: 700px) {
+  .casino { padding: 5px; }
+  h1 { font-size: 1.6em; }
+  .balance { font-size: 1.1em; }
+  .result { font-size: 1.1em; }
+  button { font-size: 1.1em; padding: 10px 18px; }
+}
+
+@media (max-width: 600px) {
+  h1 { font-size: 1.5em; }
+  .slot-machine-8x4 { width: 98%; gap: 2px; padding: 4px; }
+  .reel-cell img { width: 80%; height: 80%; }
+}

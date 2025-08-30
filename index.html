@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Адское Казино: Бес</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="level-bez">
+  <div class="casino">
+    <h1>🔥 АДСКОЕ КАЗИНО</h1>
+    <div id="level">Уровень: Бес</div>
+    <div class="balance">Души: <span id="balance">1000</span></div>
+
+    <!-- Сетка 8x4 -->
+    <div class="slot-machine-8x4" id="machine">
+      <!-- Создаётся через JS -->
+    </div>
+
+    <!-- Бес -->
+    <div class="demon bez" id="demon"></div>
+
+    <!-- Эффекты -->
+    <div class="effect hit-effect" id="hit-effect">УДАР!</div>
+    <div class="effect broken-row" id="broken-row">РЯД СЛОМАН!</div>
+
+    <!-- Супер игра -->
+    <div class="super-game-timer" id="super-game" style="display: none;">
+      Бесплатные вращения: <span id="free-spins">15</span>
+    </div>
+
+    <!-- Управление -->
+    <div class="controls">
+      <input type="number" id="bet" value="100" min="1" max="1000" />
+      <button onclick="spin()">КРУТИТЬ</button>
+      <button onclick="toggleAutoSpin()">АВТО</button>
+    </div>
+
+    <div class="result" id="result"></div>
+  </div>
+
+  <!-- ЗВУКИ -->
+  <audio id="bg-music" src="assets/bg-music.mp3" loop></audio>
+  <audio id="sfx-spin" src="assets/spin-loop.mp3" loop></audio>
+  <audio id="sfx-hit" src="assets/sfx-hit.mp3"></audio>
+  <audio id="sfx-win" src="assets/sfx-win.mp3"></audio>
+  <audio id="sfx-big-win" src="assets/sfx-big-win.mp3"></audio>
+
+  <script src="script.js"></script>
+</body>
+</html>
